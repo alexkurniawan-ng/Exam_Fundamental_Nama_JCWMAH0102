@@ -42,7 +42,7 @@
     console.log("desc: " + generatedArray)
     document.getElementById("generatedMax").innerHTML = "Angka Max : " + generatedMax;
 
-    
+    generatedMinFlag = false
     if (generatedArray.length == 1) {
         generatedMin = generatedMax
     } else {
@@ -57,8 +57,9 @@
             }
             generatedArray[index] = generatedArray[i];
             generatedArray[i] = temp;
-            if (generatedMin == 0) {
+            if (!generatedMinFlag) {
                 generatedMin = temp
+                generatedMinFlag = true
             }
         }
     }
