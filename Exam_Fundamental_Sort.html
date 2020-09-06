@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromptSort</title>
+</head>
+<body>
+    <p id="generatedArray"></p>
+    <p id="generatedMax"></p>
+    <p id="generatedMin"></p>
+</body>
+<script>
+    let generatedArray = []
+    let generatedMax = 0
+    let generatedMin = 0
+
+    let x = 0
+    do {
+        x = parseInt(prompt('Input Angka (untuk exit, input selain angka)'))
+        generatedArray.push(x)
+    } while (Boolean(parseInt(x)) || x == 0) 
+    generatedArray.pop()
+    document.getElementById("generatedArray").innerHTML = "Angka Terinput : " + generatedArray;
+
+    
+    for (let i = 0; i < generatedArray.length; i++) {
+        let index = i;
+        let temp = generatedArray[i];
+        for (let j = i; j < generatedArray.length; j++) {
+            if (generatedArray[j] > temp) {
+                temp = generatedArray[j]
+                index = j
+            }
+        }
+        generatedArray[index] = generatedArray[i];
+        generatedArray[i] = temp;
+        if (generatedMax < temp) {
+            generatedMax = temp
+        }
+    }
+    console.log("desc: " + generatedArray)
+    document.getElementById("generatedMax").innerHTML = "Angka Max : " + generatedMax;
+
+    
+    if (generatedArray.length == 1) {
+        generatedMin = generatedMax
+    } else {
+        for (let i = 0; i < generatedArray.length; i++) {
+            let index = i;
+            let temp = generatedArray[i];
+            for (let j = i; j < generatedArray.length; j++) {
+                if (generatedArray[j] < temp) {
+                    temp = generatedArray[j]
+                    index = j
+                }
+            }
+            generatedArray[index] = generatedArray[i];
+            generatedArray[i] = temp;
+            if (generatedMin == 0) {
+                temp <= generatedMin ? generatedMin = temp : null
+            }
+        }
+    }
+    console.log("asc: " + generatedArray)
+    document.getElementById("generatedMin").innerHTML = "Angka Min : " + generatedMin;
+</script>
+
+</html>
+

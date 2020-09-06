@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shape</title>
+</head>
+<body>
+    <div>
+        <select name="shape" id="shapeList">
+            <option value="persegi">Persegi</option>
+            <option value="segitiga01">Segitiga Siku Kiri</option>
+            <option value="segitiga02">Segitiga Siku Kanan</option>
+        </select>
+        <br><br>
+        Size of shape :
+        <br><br>
+        <input type="number" id="inpNumber" value="5">
+        <button type="button" onclick="generate()">Generate</button><br>
+        <p id="generated"></p>
+    </div>
+</body>
+<script>
+    generate = () => {
+        let star = `* `;
+        let kres = `# `
+        let shape = document.getElementById("shapeList").value
+        let x = document.getElementById("inpNumber").value
+        let element = ''
+        
+        if (shape == 'segitiga01') {
+            for (let i = 1; i <= x; i++) {
+                for (let j = 0; j < i; j++) {
+                    if (j % 2 == 0) {
+                        element += `${star}  `;
+                    } else {
+                        element += `${kres}  `;
+                    }
+                }
+                if (i != x) {
+                    element += '<br>'
+                }
+            }
+        } else if (shape == 'segitiga02') {
+            for (let i = 1; i <= x; i++) {
+                for (let k = 0; k < (x - i); k++) {
+                    element += `&nbsp &nbsp`
+                }
+                for (let j = 0; j < i; j++) {
+                    if (i % 2 == 0) {
+                        element += `${kres}  `;
+                    } else {
+                        element += `${star}  `;
+                    }
+                }
+                if (i != x ) {
+                    element += '<br>'
+                }
+            }
+        } else if (shape == 'persegi') {
+            for (let i = 0; i < x; i++) {
+                for (let j = 0; j < x; j++) {
+                    if (i % 2 == 0) {
+                        if (j % 2 == 0) {
+                            element += `${star}  `
+                        } else {
+                            element += `${kres}  `;
+                        }
+                    } else {
+                        element += `${kres}  `;
+                    }
+                }
+                if (i != (x - 1)) {
+                    element += '<br>'
+                }
+            }
+
+        }
+
+        document.getElementById("generated").innerHTML = element;
+    }
+
+
+</script>
+</html>
