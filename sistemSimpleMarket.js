@@ -156,13 +156,13 @@ btLogin = () => {
             if(item.username == getUsername && item.password == getPassword) {
                 userLogin = index
                 // console.log(index)
-                // alert(`Selamat datang ${item.username}!`)
+                alert(`Selamat datang ${item.username}!`)
             } 
         })
         
         if (userLogin != null) {
             if(dbUser[userLogin].role == "admin"){
-                // alert("kamu admin");
+                alert("kamu admin");
                 document.getElementById("addProduct-page").style.display = "block";
                 document.getElementById("product-page").style.display = "block";
                 document.getElementById("btMasuk").disabled = true;
@@ -170,7 +170,7 @@ btLogin = () => {
                 printDataProduk();
                 printReport();
             } else if (dbUser[userLogin].role == "user"){
-                // alert("kamu user");
+                alert("kamu user");
                 document.getElementById("product-page").style.display = "block";
                 document.getElementById("btMasuk").disabled = true;
                 document.getElementById("btKeluar").disabled = false;
@@ -216,7 +216,6 @@ printDataProduk = (idx, data = dbProduk) => {
             <td>
             ${
                 dbUser[userLogin].role == "user" ?
-                // `<button type="button" onclick='addCart(${index})'>Cart 🛒 + 1</button><button type="button" onclick='addCartBulk(${index})'>Cart 🛒 + Bulk</button>` 
                 `<button type="button" onclick='addCart(${index})'>Add to Cart 🛒</button>` 
                 :
                 `<button type="button" onclick='editProduk(${index})'>Edit</button><button type="button" onclick='deleteProduk(${index})'>Delete</button>`
@@ -225,7 +224,6 @@ printDataProduk = (idx, data = dbProduk) => {
         </tr>`
         }
         document.getElementById("listProduk").innerHTML = tableElement;
-        // console.table(dbProduk)
     })
 };
 // printDataProduk();
@@ -305,7 +303,6 @@ editProduk = (index) => {
 deleteProduk = (index) => {
     dbProduk.splice(index, 1);
     printDataProduk();
-    // console.table(dbProduk)
 }
 
 saveProduk = (index) => {
@@ -351,35 +348,9 @@ addCart = (index) => {
     printDataCart()
     printDataProduk();
     console.table(dbUser[userLogin].keranjang)
-    // console.log('cek: ' + noProduk)
 }
 
 //PROMPT JUMLAH
-addCartBulk = (index) => {
-    let qtyProduk = parseInt(prompt('Jumlah Produk yang ingin Anda beli?'));
-    let noProduk = dbUser[userLogin].keranjang.findIndex((item) => item.id == dbProduk[index].idProduk)
-    if (noProduk == -1) {
-        dbUser[userLogin].keranjang.push(new DB_Keranjang(dbProduk[index].idProduk, dbProduk[index].nama, dbProduk[index].foto, qtyProduk, dbProduk[index].harga));
-        document.getElementById("cart-page").style.display = "block";
-        dbProduk[index].stock -= qtyProduk
-    } else {
-        userCart = dbUser[userLogin].keranjang[noProduk]
-        userCart.qty += qtyProduk
-        userCart.priceTotal = userCart.qty * userCart.price 
-        dbProduk[index].stock -= qtyProduk
-    }
-
-    // dbUser[userLogin].keranjang.push(new DB_Keranjang(dbProduk[index].idProduk, dbProduk[index].nama, dbProduk[index].foto, qtyProduk, dbProduk[index].harga));
-    // document.getElementById("cart-page").style.display = "block";
-    // dbProduk[index].stock -= qtyProduk
-    printDataCart()
-    printDataProduk();
-
-    // console.table(dbUser.keranjang)
-    // console.log(indexProduct)
-}
-
-
 editCart = (index) => {
     let noProduk = dbProduk.findIndex((item) => item.idProduk == dbUser[userLogin].keranjang[index].id)
     let qtyProduk = '';
